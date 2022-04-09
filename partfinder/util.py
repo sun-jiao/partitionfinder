@@ -15,9 +15,7 @@
 # conditions, using PartitionFinder implies that you agree with those licences
 # and conditions as well.
 
-import logtools
-log = logtools.get_logger()
-
+from partfinder import logtools
 import os
 import fnmatch
 import subprocess
@@ -25,18 +23,23 @@ import shlex
 import shutil
 from math import log as logarithm
 
+log = logtools.get_logger()
+
 
 # Base error class
 class PartitionFinderError(Exception):
     pass
+
 
 class ExternalProgramError(PartitionFinderError):
     def __init__(self, stdout, stderr):
         self.stdout = stdout
         self.stderr = stderr
 
+
 class ParseError(PartitionFinderError):
     pass
+
 
 NO_CONFIG_ERROR = """
 Failed to find configuration file: '%s'. For PartitionFinder to run, there
@@ -83,6 +86,7 @@ def run_program(binary, command):
         stdout, stderr = p.communicate()
         raise ExternalProgramError(stdout, stderr)
 
+
 def dupfile(src, dst):
     # Make a copy or a symlink so that we don't overwrite different model runs
     # of the same alignment
@@ -95,6 +99,7 @@ def dupfile(src, dst):
     except OSError:
         log.error("Cannot link/copy file %s to %s", src, dst)
         raise PartitionFinderError
+
 
 def check_file_exists(pth):
     if not os.path.exists(pth) or not os.path.isfile(pth):
@@ -131,7 +136,7 @@ def check_folder_exists(pth):
 
 def clean_out_folder(folder, keep=[]):
     """Hat Tip:
-    http://stackoverflow.com/questions/185936/delete-folder-contents-in-python
+    https://stackoverflow.com/questions/185936/delete-folder-contents-in-python
     """
     for the_file in os.listdir(folder):
         if the_file not in keep:
@@ -172,6 +177,7 @@ def remove_runID_files(aln_pth):
             # sometimes try and delete things twice in the threading).
             pass
 
+
 def memoize(f):
     """Cache results from functions"""
     cache = {}
@@ -180,11 +186,14 @@ def memoize(f):
         if x not in cache:
             cache[x] = f(*x)
         return cache[x]
+
     return memf
+
 
 def get_aic(lnL, K):
     aic = (-2.0 * lnL) + (2.0 * K)
     return aic
+
 
 def get_aicc(lnL, K, n):
     SMALL_WARNING = """
@@ -199,25 +208,24 @@ def get_aicc(lnL, K, n):
     aicc = (-2.0 * lnL) + ((2.0 * K) * (n / (n - K - 1.0)))
     return aicc
 
+
 def get_bic(lnL, K, n):
     bic = (-2.0 * lnL) + (K * logarithm(n))
     return bic
 
-
-
 # def we_are_frozen():
-    # All of the modules are built-in to the interpreter, e.g., by py2exe
-    # return hasattr(sys, "frozen")
+# All of the modules are built-in to the interpreter, e.g., by py2exe
+# return hasattr(sys, "frozen")
 
 # def get_root_install_path():
-    # pth = os.path.abspath(__file__)
-    # Split off the name and the directory...
-    # pth, not_used = os.path.split(pth)
-    # pth, not_used = os.path.split(pth)
-    # return pth
+# pth = os.path.abspath(__file__)
+# Split off the name and the directory...
+# pth, not_used = os.path.split(pth)
+# pth, not_used = os.path.split(pth)
+# return pth
 
 # def module_path():
-    # encoding = sys.getfilesystemencoding()
-    # if we_are_frozen():
-        # return os.path.dirname(unicode(sys.executable, encoding))
-    # return os.path.abspath(os.path.dirname(unicode(__file__, encoding)))
+# encoding = sys.getfilesystemencoding()
+# if we_are_frozen():
+# return os.path.dirname(unicode(sys.executable, encoding))
+# return os.path.abspath(os.path.dirname(unicode(__file__, encoding)))

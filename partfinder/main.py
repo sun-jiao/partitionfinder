@@ -20,7 +20,7 @@ __VERSION__ = "2.1.1"
 import logging
 import sys
 import shlex
-import logtools
+from partfinder import logtools, config, analysis_method, util, reporter, progress, parser, raxml, phyml
 
 logging.basicConfig(
     format="%(levelname)-8s | %(asctime)s | %(message)s",
@@ -31,15 +31,8 @@ log = logtools.get_logger()
 from optparse import OptionParser
 
 # We import everything here as it forces all of debug regions to be loaded
-import config
-import analysis_method
-import util
-import reporter
-import progress
+
 import datetime
-import parser
-import raxml
-import phyml
 
 
 def debug_arg_callback(option, opt, value, theparser):
@@ -76,6 +69,7 @@ def set_debug_regions(regions):
     logging.getLogger("").handlers[0].setFormatter(fmt)
 
     return None
+
 
 def parse_args(datatype, cmdargs=None):
     usage = """usage: python %prog [options] <foldername>
@@ -149,7 +143,7 @@ def parse_args(datatype, cmdargs=None):
     op.add_option(
         "-q", "--quick",
         action="store_true", dest="quick", default=False,
-        help="Avoid anything slow (like writing schemes at each step)," 
+        help="Avoid anything slow (like writing schemes at each step),"
              "useful for very large datasets."
     )
     op.add_option(
@@ -284,7 +278,7 @@ def check_options(op, options):
     else:
         options.phylogeny_program = 'phyml'
 
-    #A warning for people using the Pthreads version of RAxML
+    # A warning for people using the Pthreads version of RAxML
     if options.cmdline_extras.count("-T") > 0:
         log.warning("""
             It looks like you're using a Pthreads version of RAxML. Be aware
@@ -327,6 +321,7 @@ def check_python_version():
             with version 3 or higher. To guarantee success, please use
             Python 2.7.x""" % python_version)
 
+
 def run_analysis(cfg, options):
     # Now try processing everything....
     method = analysis_method.choose_method(cfg.search)
@@ -338,6 +333,7 @@ def run_analysis(cfg, options):
     elif options.compare_results:
         results.compare(cfg)
 
+
 def profile_analysis(cfg, options):
     import cProfile, pstats
     cProfile.runctx('run_analysis(cfg, options)', globals(), locals(), filename='profile.output')
@@ -346,8 +342,8 @@ def profile_analysis(cfg, options):
     p.sort_stats('cumtime').print_stats(20)
     # p.strip_dirs().sort_stats(-1).print_stats()
 
-def main(name, datatype, passed_args=None):
 
+def main(name, datatype, passed_args=None):
     # If passed_args is None, this will use sys.argv
     options, args = parse_args(datatype, passed_args)
     if not args:
@@ -371,17 +367,17 @@ def main(name, datatype, passed_args=None):
     try:
         # TODO: just pass the options in!
         config.the_config.init(datatype,
-                                   options.phylogeny_program,
-                                   options.save_phylofiles,
-                                   options.cmdline_extras,
-                                   options.cluster_weights,
-                                   options.cluster_percent,
-                                   options.cluster_max,
-                                   options.kmeans, 
-                                   options.quick,
-                                   options.min_subset_size,
-                                   options.all_states,
-                                   options.no_ml_tree)
+                               options.phylogeny_program,
+                               options.save_phylofiles,
+                               options.cmdline_extras,
+                               options.cluster_weights,
+                               options.cluster_percent,
+                               options.cluster_max,
+                               options.kmeans,
+                               options.quick,
+                               options.min_subset_size,
+                               options.all_states,
+                               options.no_ml_tree)
         cfg = config.the_config
 
         # Set up the progress callback

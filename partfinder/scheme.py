@@ -15,13 +15,10 @@
 # conditions, using PartitionFinder implies that you agree with those licences
 # and conditions as well.
 
-import logtools
+from partfinder import logtools, subset_ops, submodels
 log = logtools.get_logger()
 
-import subset_ops
-import submodels
-
-from util import PartitionFinderError, get_aic, get_aicc, get_bic
+from partfinder.util import PartitionFinderError, get_aic, get_aicc, get_bic
 
 
 class SchemeError(PartitionFinderError):

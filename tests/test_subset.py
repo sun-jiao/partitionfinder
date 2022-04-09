@@ -3,6 +3,7 @@ from partfinder.subset import Subset
 from partfinder.scheme import Scheme, SchemeError
 from partfinder.config import Configuration
 
+
 # TODO: put all of the subset splitting joining tests in here
 
 def test_identity():
@@ -34,8 +35,4 @@ def test_overlap(caplog):
     # This isn't
     with pytest.raises(SchemeError):
         Scheme(c, 'a', [s1, s3])
-    assert "contains overlapping" in caplog.text()
-
-
-
-
+    assert "contains overlapping" in caplog.text

@@ -6,18 +6,20 @@ import numpy
 HERE = os.path.abspath(os.path.dirname(__file__))
 MISC_PATH = os.path.join(HERE, 'misc')
 
+
 def test_parse_nucleotide():
     pth = os.path.join(MISC_PATH, 'raxml_nucleotide.output')
     c = Configuration().init(datatype='DNA', phylogeny_program="raxml")
     p = raxml.Parser(c)
     res = p.parse(open(pth).read())
     expected = numpy.array([
-        0.315909, 
+        0.315909,
         0.232955,
-        0.190909, 
-        0.260227, 
+        0.190909,
+        0.260227,
     ])
     assert numpy.allclose(res.freqs[0], expected)
+
 
 def test_parse_aminoacid():
     pth = os.path.join(MISC_PATH, 'raxml_aminoacid.output')
@@ -29,6 +31,7 @@ def test_parse_aminoacid():
                             0.121781, 0.019642, 0.061545, 0.073330, 0.035356,
                             0.102139, 0.048014, 0.025753, 0.035356, 0.037975])
     assert numpy.allclose(res.freqs[0], expected)
+
 
 def test_parse_lg4m():
     pth = os.path.join(MISC_PATH, 'raxml_aminoacid_LG4M+G.output')
@@ -43,4 +46,3 @@ def test_parse_lg4m():
                             0.023665, 0.041874, 0.063071, 0.066501,
                             0.065424, 0.023837, 0.038633, 0.049465])
     assert numpy.allclose(res.freqs[0], expected)
-    

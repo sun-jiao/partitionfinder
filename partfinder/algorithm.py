@@ -16,7 +16,6 @@
 # and conditions as well.
 
 from math import sqrt
-from itertools import izip
 
 
 def k_subsets_i(n, k):
@@ -83,7 +82,7 @@ def lumpings(scheme):
 
 def euclidean_distance(x, y):
     sum = 0
-    for xval, yval in izip(x, y):
+    for xval, yval in zip(x, y):
         sum += (xval - yval) ** 2
     dist = sqrt(sum)
     return dist

@@ -1,5 +1,6 @@
 from partfinder.submodels import get_submodels, count_all_schemes
 
+
 def test_consistency():
     known_results = [
         [0, 0, 0, 0],
@@ -19,7 +20,8 @@ def test_consistency():
         [0, 1, 2, 3],
     ]
     submodels = get_submodels(4)
-    assert submodels ==  known_results
+    assert submodels == known_results
+
 
 def test_scheme_lengths():
     assert count_all_schemes(1) == 1

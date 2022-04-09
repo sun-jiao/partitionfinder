@@ -15,13 +15,13 @@
 # conditions, using PartitionFinder implies that you agree with those licences
 # and conditions as well.
 
-import logtools
+from partfinder import logtools
 log = logtools.get_logger()
 
 import os
-import cPickle as pickle
+import _pickle as pickle
 
-from util import PartitionFinderError
+from partfinder.util import PartitionFinderError
 
 _check_fields = "lnl aic aicc bic".split()
 

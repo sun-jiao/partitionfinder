@@ -49,10 +49,10 @@ class DumbLogger(object):
     def error(self, *args):
         self.log.error(*args)
 
-    def push():
+    def push(self):
         pass
 
-    def pop():
+    def pop(self):
         pass
 
 

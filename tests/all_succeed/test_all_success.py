@@ -1,5 +1,4 @@
 import os
-import pytest
 from partfinder import main, util, analysis, config
 from zipfile import ZipFile
 

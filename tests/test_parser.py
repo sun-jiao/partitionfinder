@@ -1,6 +1,7 @@
 from partfinder.config import Configuration
 from partfinder.parser import Parser
 
+
 def test_one():
     # Just use the defaults
     c = Configuration()
@@ -9,6 +10,7 @@ def test_one():
     p.parse_configuration(test1)
     assert len(c.user_subsets) == 9
     assert len(c.user_schemes) == 6
+
 
 test1 = r"""
 alignment = test.phy;

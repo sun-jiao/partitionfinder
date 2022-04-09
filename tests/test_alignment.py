@@ -1,14 +1,13 @@
 import pytest
 import fnmatch
 import os
-from StringIO import StringIO
+from io import StringIO
 from partfinder.alignment import Alignment, SubsetAlignment, AlignmentError
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 MISC_PATH = os.path.join(HERE, 'misc')
 
-BASIC = """
-5 10
+BASIC = """5 10
 spp1   actgactgaa
 spp2   tctgtctgtt
 spp3   agtgagtgaa
@@ -89,14 +88,14 @@ def test_too_few_species(caplog):
     a = Alignment()
     with pytest.raises(AlignmentError):
         a.parse(TOO_FEW_SPECIES)
-    assert "too many species" in caplog.text()
+    assert ("too many species" in caplog.text)
 
 
 def test_too_many_species(caplog):
     a = Alignment()
     with pytest.raises(AlignmentError):
         a.parse(TOO_MANY_SPECIES)
-    assert "Phyml format error" in caplog.text()
+    assert ("Phyml format error" in caplog.text)
 
 
 class FakeSubset(object):
