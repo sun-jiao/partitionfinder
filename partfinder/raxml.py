@@ -455,10 +455,13 @@ class Parser(object):
         # first one, so we must remember where we are.
         self.current_block = 1
         try:
-            self.root_parser.parseString(text)
+            self.root_parser.parseString(bytes(text, 'utf-8'))
         except ParseException as p:
             log.error(str(p))
             raise util.ParseError
+        except TypeError as te:
+            log.error(str(te))
+            # raise TypeError
 
         log.debug("Result is %s", self.result)
         return self.result

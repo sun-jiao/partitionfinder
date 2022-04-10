@@ -52,7 +52,7 @@ def get_raxml_protein_modelstring(modelstring):
     So really all we do is add an F/X to the model name if it used +F.
     """
 
-    elements = modelstring.split("+")
+    elements = str(modelstring).split("+")
     model_name = elements[0]
     extras = elements[1:]
 
@@ -70,7 +70,7 @@ def get_raxml_morphology_modelstring(modelstring):
     MULTI. This is only used for printing out RAxML partition files
     """
 
-    elements = modelstring.split("+")
+    elements = str(modelstring).split("+")
     model_name = elements[0]
 
     if model_name == "MULTISTATE":
@@ -83,7 +83,7 @@ def get_mrbayes_modeltext_DNA(modelstring, i):
     """Start with a model like this: GTR+I+G, or LG+I+G, return some text that can be 
     used to run a model like it in MrBayes"""
 
-    elements = modelstring.split("+")
+    elements = str(modelstring).split("+")
     model_name = elements[0]
     extras = elements[1:]
 
@@ -116,7 +116,7 @@ def get_mrbayes_modeltext_DNA(modelstring, i):
 
 
 def get_mrbayes_modeltext_protein(modelstring, i):
-    elements = modelstring.split("+")
+    elements = str(modelstring).split("+")
     model_name = elements[0]
     extras = elements[1:]
 

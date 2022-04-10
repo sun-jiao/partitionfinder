@@ -8,7 +8,7 @@ def get_test_folders():
     testdirs = []
     # Get everything that is here...
     for p in os.listdir(HERE):
-        if p.startswith('__'):
+        if p.startswith('__') or p.startswith('.'):
             continue
         d = os.path.join(HERE, p)
         if os.path.isdir(d):

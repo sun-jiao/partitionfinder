@@ -349,7 +349,7 @@ class Alignment(object):
             log.error("Cannot find alignment file '%s'", pth)
             raise AlignmentError
 
-        with open(pth, 'rU') as stream:
+        with open(pth, 'r') as stream:
             self.parse_stream(stream)
 
     def parse(self, text):
@@ -372,7 +372,7 @@ class Alignment(object):
             # up to 100
             shortened = "%s    " % (spec[:99])
             stream.write(shortened)
-            stream.write(str(''.join(map(chr, sequence))))
+            stream.write(str(''.join(map(chr, sequence))))  # convert ascii list to string.
             stream.write("\n")
 
     def check_state_probs(self, subset, cfg):

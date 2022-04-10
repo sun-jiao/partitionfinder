@@ -41,7 +41,7 @@ def kmeans(rate_array, number_of_ks, n_jobs):
     and lists of sites belonging to that k as values
     '''
     log.debug("Beginning k-means splitting")
-    start = time.clock()
+    start = time.process_time()
 
     # Create and scale an array for input into kmeans function
     array = scale(rate_array)
@@ -70,7 +70,7 @@ def kmeans(rate_array, number_of_ks, n_jobs):
     for num in range(len(rate_categories)):
         cluster_dict[rate_categories[num]].append(num + 1)
 
-    stop = time.clock()
+    stop = time.process_time()
     time_taken = "k-means splitting took %s seconds" % (stop - start)
     log.debug(time_taken)
 

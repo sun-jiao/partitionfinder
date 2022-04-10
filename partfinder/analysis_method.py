@@ -171,7 +171,7 @@ class GreedyAnalysis(Analysis):
                 # this is a fake distance matrix, so that the greedy algorithm
                 # can use all the tricks of the relaxed clustering algorithm
                 dim = len(subsets)
-                d_matrix = np.zeros((((dim*dim)-dim))/2)
+                d_matrix = np.zeros(int(((dim * dim) - dim) / 2))
                 d_matrix[:] = np.inf
 
                 if step == 1:
@@ -626,7 +626,7 @@ class KmeansAnalysis(Analysis):
 
                         euclid_dist = spatial.distance.pdist(centroid_array)
 
-                        if euclid_dist < best_match or best_match is None:
+                        if best_match is None or euclid_dist < best_match:
                             best_match = euclid_dist
                             closest_sub = sub
 

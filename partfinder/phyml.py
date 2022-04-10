@@ -201,7 +201,7 @@ class Parser(object):
     def parse(self, text):
         log.debug("Parsing phyml output...")
         try:
-            tokens = self.root_parser.parseString(text)
+            tokens = self.root_parser.parseString(text.decode("utf-8"))
         except ParseException as p:
             log.error(str(p))
             raise util.ParseError

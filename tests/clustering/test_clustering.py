@@ -69,8 +69,7 @@ def pytest_generate_tests(metafunc):
     # This function feeds the output of the above function into the tests below
     if 'folder_name' in metafunc.fixturenames:
         # Send it sorted order
-        k = test_container.keys()
-        k.sort()
+        k = sorted(test_container.keys())
         metafunc.parametrize('folder_name', k)
 
 # The actual test function

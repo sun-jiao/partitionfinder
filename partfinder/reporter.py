@@ -295,7 +295,7 @@ class TextReporter(object):
 
     def write_best_scheme(self, result):
         pth = os.path.join(self.cfg.output_path, 'best_scheme.txt')
-        output = open(pth, 'wb')
+        output = open(pth, 'w')
         output.write('Settings used\n\n')
         output.write(scheme_header_template % ("alignment", self.cfg.alignment_path))
         output.write(scheme_header_template % ("branchlengths", self.cfg.branchlengths))

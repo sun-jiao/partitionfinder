@@ -90,8 +90,8 @@ class DataLayout(object):
         # Now add frequencies and rate. These are added as embedded in an extra dimension
 
         layout.extend([
-            ('freqs', float_type, self.letter_size),
-            ('rates', float_type, self.rate_size),
+            ('freqs', float_type, int(self.letter_size)),
+            ('rates', float_type, int(self.rate_size)),
         ])
 
         # Now construct the numpy datatype that gives us the layout

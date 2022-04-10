@@ -146,7 +146,7 @@ class SchemeSet(object):
         return len(self.schemes_by_name)
 
     def __iter__(self):
-        return iter(self.schemes_by_name.itervalues())
+        return iter(self.schemes_by_name.values())
 
 
 def create_scheme(cfg, scheme_name, scheme_description):

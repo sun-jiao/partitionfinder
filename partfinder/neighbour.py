@@ -209,7 +209,7 @@ def update_c_matrix(c_matrix, sub_tuples, subsets, diffs):
     if len(c_matrix.shape) == 1:
         c_matrix = scipy.spatial.distance.squareform(c_matrix)
 
-    for t, diff in itertools.izip(sub_tuples, diffs):
+    for t, diff in zip(sub_tuples, diffs):
         old_subs = t[1]
         i = subsets.index(old_subs[0])
         j = subsets.index(old_subs[1])
